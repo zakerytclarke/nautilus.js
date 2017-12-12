@@ -8,16 +8,23 @@ Nautilus.js
 </style>
 </head>
 <body>
+<h1>
+Neural Network Visualizer
+</h1>
+<canvas id="nautilusvisual" width="500px" height="300px" style="border:1px black solid;"></canvas>
 
-
-<script src="nn.js">
+<script src="nautilus.js">
 </script>
 <script>
 
-var test=new network([2,3,1]);
+var test=new network([2,5,1]);
 test.reset();
-console.log(test.layers);
-alert("hi");
+var args=[0,1];
+test.evaluate(args);
+test.draw();
+test.log();
+var temp=JSON.parse(JSON.stringify(test));
+console.log(temp);
 </script>
 </body>
 </html>
