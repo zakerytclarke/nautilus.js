@@ -9,22 +9,60 @@ Nautilus.js
 </head>
 <body>
 <h1>
-Neural Network Visualizer
+Nautilus Neural Network
 </h1>
-<canvas id="nautilusvisual" width="500px" height="300px" style="border:1px black solid;"></canvas>
+<div style="float:left;width:45%;height:100%;">
+<h2>
+Neural Network Visualizer
+</h2>
+<canvas id="nautilusvisual" style="width:100%;height:75%;border:1px black solid;"></canvas>
+</div>
+<div style="float:right;width:45%;height:100%;">
+<h2>
+Statistics
+</h2>
 
+<button id="reset" onclick="reset()">Reset Stats</button>
+<button id="stop" onclick="stop()">Pause</button>
+<button id="save" onclick="save()">Save</button>
+<button id="stop" onclick="load()">Load</button>
+<h3>
+Time Running:0 minutes
+</h3>
+<h3>
+Total Runs:0
+</h3>
+<h3>
+Correct:0
+</h3>
+<h3>
+Wrong:0
+</h3>
+<p>
+This software is provided free of charge under the MIT Open Source License. Nautilus is an in browser neural network library for JavaScript that allows you to train and distribute models that will run on any device. Created by <a href="https://zakerytclarke.github.io">Zakery Clarke</a>.
+</p>
+</div>
 <script src="nautilus.js">
 </script>
 <script>
-
-var test=new network([2,5,1]);
+function stop(){
+  clearInterval(timer);
+}
+var test=new network([2,3,1]);
 test.reset();
-var args=[0,1];
+var timer=setInterval(function(){runit();},100);
+
+function runit(){
+var args=[Math.floor(Math.random()*2),Math.floor(Math.random()*2)];
 test.evaluate(args);
 test.draw();
-test.log();
-var temp=JSON.parse(JSON.stringify(test));
-console.log(temp);
+if(args[0]==args[1]){
+  test.backpropagate([1]);
+}else{
+  test.backpropagate([0]);
+}
+}
+
 </script>
 </body>
 </html>
